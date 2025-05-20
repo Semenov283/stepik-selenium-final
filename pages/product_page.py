@@ -2,6 +2,10 @@ from .base_page import BasePage
 from .locators import ProductPageLocators
 import math
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoAlertPresentException
+import math
 
 
 class ProductPage(BasePage):
@@ -21,15 +25,18 @@ class ProductPage(BasePage):
         assert product_price == message, f"Expected '{product_price}' in message, got '{message}'"
 
     def solve_quiz_and_get_code(self):
-        alert = self.browser.switch_to.alert
-        x = alert.text.split(" ")[2]
-        answer = str(math.log(abs((12 * math.sin(float(x))))))
-        alert.send_keys(answer)
-        alert.accept()
         try:
-            alert = self.browser.switch_to.alert
-            alert_text = alert.text
-            print(f"Your code: {alert_text}")
+            alert = WebDriverWait(self.browser, 4).until(EC.alert_is_present())
+            x = alert.text.split(" ")[2]
+            answer = str(math.log(abs((12 * math.sin(float(x))))))
+            alert.send_keys(answer)
             alert.accept()
-        except NoAlertPresentException:
-            print("No second alert presented")
+            try:
+                alert = self.browser.switch_to.alert
+                alert_text = alert.text
+                print(f"Your code: {alert_text}")
+                alert.accept()
+            except NoAlertPresentException:
+                print("No second alert presented")
+        except TimeoutException:
+            print("No alert presented - skipping quiz solving")
