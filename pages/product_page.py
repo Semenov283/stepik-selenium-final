@@ -40,3 +40,11 @@ class ProductPage(BasePage):
                 print("No second alert presented")
         except TimeoutException:
             print("No alert presented - skipping quiz solving")
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_disappear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is not disappeared, but should be"
