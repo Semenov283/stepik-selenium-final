@@ -87,3 +87,9 @@ class LoginPage(BasePage):
                 f"Ошибка при проверке формы регистрации: {str(e)}\n"
                 f"Текущий URL: {current_url}"
             )
+
+    def register_new_user(self, email, password):
+        self.browser.find_element(*LoginPageLocators.REGISTER_EMAIL).send_keys(email)
+        self.browser.find_element(*LoginPageLocators.REGISTER_PASSWORD1).send_keys(password)
+        self.browser.find_element(*LoginPageLocators.REGISTER_PASSWORD2).send_keys(password)
+        self.browser.find_element(*LoginPageLocators.REGISTER_BUTTON).click()

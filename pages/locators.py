@@ -27,7 +27,15 @@ class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     BASKET_LINK = (By.CSS_SELECTOR, ".btn-group a.btn-default")
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
 
 class BasketPageLocators:
     BASKET_ITEMS = (By.CSS_SELECTOR, ".basket-items")
     EMPTY_MESSAGE = (By.CSS_SELECTOR, "#content_inner > p")
+
+class LoginPageLocators:
+    REGISTER_EMAIL = (By.ID, "id_registration-email")
+    REGISTER_PASSWORD1 = (By.ID, "id_registration-password1")
+    REGISTER_PASSWORD2 = (By.ID, "id_registration-password2")
+    REGISTER_BUTTON = (By.NAME, "registration_submit")
